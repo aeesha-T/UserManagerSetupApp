@@ -1,0 +1,25 @@
+FROM node:carbon
+
+#Setup Application
+
+# Update node js
+#RUN apk add --update nodejs
+
+#clone the repository
+RUN git clone https://github.com/BolajiOlajide/UserManager.git
+
+# Install app dependencies
+#COPY package.json /UserManager/package.json
+RUN cd UserManager; npm install
+
+#create .env file and write the config to it
+RUN touch .env
+#RUN echo $'PORT=3000\nDB_URL=\'mongodb://localhost:27017/User\'' > .env
+
+RUN echo "PORT=3000" >> .env
+RUN echo "DB_URL='mongodb://localhost:27017/User'" >> .env
+
+# Bundle app source
+#COPY . /UserManager
+
+CMD ["npm", "start"]
